@@ -1,0 +1,90 @@
+{% extends "layout.twig" %}
+
+{% block body %}
+<h1>welcom to dashboard</h1>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
+    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
+    <button class="nav-link" id="nav-article-tab" data-bs-toggle="tab" data-bs-target="#nav-article" type="button" role="tab" aria-controls="nav-article" aria-selected="false">Article</button>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+  <h2>Hello {{user.firstname}}</h2>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et eius esse, officiis quidem quas, nisi reprehenderit id nobis itaque voluptate nemo sapiente vitae voluptatem placeat doloribus mollitia tenetur hic sunt.
+  Dicta dolorem aliquam repellat ipsum, eaque earum facere praesentium iusto est, voluptas unde minus error eos doloribus temporibus incidunt fuga officiis at, consectetur rerum facilis! Dicta explicabo id debitis magnam.
+  Temporibus eligendi reiciendis delectus odio vel, in minima ipsam ut impedit veniam deserunt porro, doloribus molestias numquam maxime. Molestiae molestias dolor dignissimos debitis soluta quae doloremque deleniti, facere corporis. Eius!</p>
+  </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+  <form action="/users/save-profile" accept-charset="UTF-8" method="POST">
+        <input type="hidden" name="userId" value="{{user._id}}">
+        <div class="input-group flex-nowrap mt-3">
+            <span class="input-group-text" id="addon-wrapping">Username</span>
+            <input type="text" class="form-control" value="{{user.username}}" name="username" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
+        <div class="input-group mt-3">
+            <span class="input-group-text ">First and last name</span>
+            <input type="text" name="firstname" value="{{user.firstname}}" aria-label="Firstname" class="form-control">
+            <input type="text" name="lastname" value="{{user.lastname}}" aria-label="Laslastnamename" class="form-control">
+        </div>
+        <div class="input-group flex-nowrap mt-3">
+            <span class="input-group-text" id="addon-wrapping">Email:</span>
+            <input type="email" class="form-control" value="{{user.email}}" name="email" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
+         <div class="input-group flex-nowrap mt-3">
+            <span class="input-group-text" id="addon-wrapping">password</span>
+            <input type="password" class="form-control"  name="password" placeholder="password" aria-label="password" aria-describedby="addon-wrapping">
+        </div>
+        <button type="submit" class="btn btn-secondary mt-3">Update profile</button>
+    </form>
+  </div>
+  <div class="tab-pane fade" id="nav-article" role="tabpanel" aria-labelledby="nav-article-tab">
+  <h3>My article</h3>
+  {% if articles %}
+  <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+  <a href="/add-article" class="btn btn-primary"> Add New article</a>
+  </div>
+    <div class="row">
+   {% for article in articles %}
+              <div class="card col-md-3 m-5 p-2" style="width: 17.5rem;">
+                    <img src="{{article.image}}" class="card-img-top" alt="{{article.title}}">
+                          <div class="card-body">
+                                    <h5 class="card-title">{{article.title}}</h5>
+                                    <div class="btn-group btn-group-sm">
+                                    <a href="/article/{{article._id}}" class="btn btn-info m-1 ">En savoir plus</a>
+                                    <a href="/edit-article/{{article._id}}" class="btn btn-primary m-1">edit</a>
+                                      <!-- Button trigger modal -->
+                                    <button class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deleteArticleModal">delete</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="deleteArticleModal" tabindex="-1" aria-labelledby="deleteArticleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">confirme delete Article</h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          Are you sure you want to delete this article
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                          <a href="/delete-article/{{article._id}}" class="btn btn-danger">delete</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                    </div>
+                          </div>
+              </div>
+   {% endfor %}
+  </div>
+    {% else %}
+      <p>Sorry, you don't have any articles ! </p>
+      <a href="/add-article" class="btn btn-primary"> Add article</a>
+  {% endif %}
+          </div>
+        </div>
+  
+{% endblock body %}
+

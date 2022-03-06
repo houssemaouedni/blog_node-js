@@ -1,0 +1,25 @@
+{% extends "layout.twig" %}
+
+
+{% block body %}
+    <h1>Login</h1>
+    <form action="" method="POST" >
+  <div class="mb-3">
+  <p class="text-center" >You don't have an account ?
+  <a href="/users/signup"> Please click here to singup</a></p>
+    <label for="exampleInputEmail1" class="form-label">Username</label>
+    <input type="text" name="username" class="form-control">
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" name="password" class="form-control">
+    <p class="text-center" >Do you forgot password ?
+  <a href="/users/forget-password"> Click here to reset !</a></p>
+  </div>
+  {# <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div> #}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

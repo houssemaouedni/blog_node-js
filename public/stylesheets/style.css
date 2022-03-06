@@ -1,0 +1,22 @@
+body {
+  padding: 25px;
+  font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+/*
+ * Override the width of the table set by Bootstrap content styles.
+ * See: https://github.com/ckeditor/ckeditor5-table/issues/154.
+ */
+.ck.ck-editor {
+  width: inherit !important;
+}
+h1{
+  text-align: center;
+}
+nav .btnlogin{
+  width: 100px !important;
+}
+
+a {
+  color: #00B7FF;
+}
+

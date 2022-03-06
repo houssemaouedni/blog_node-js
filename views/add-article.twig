@@ -1,0 +1,57 @@
+{% extends "layout.twig" %}
+
+
+{% block body %}
+	<h1>Add your article !</h1>
+	{% if errorFromArticle %}
+			<p class="text-danger">Please fix the following errors.</p>
+			<ul class="errors">
+				{% for error in errorFromArticle %}
+					{% if error.title %} 
+					<li>{{error.title.message}}</li> 
+					{% endif %}
+					{% if error.category %} <li>{{error.category.message}}</li> {% endif %}
+					{% if error.content %} <li>{{error.content.message}}</li> {% endif %}
+					{% if error.image %} <li>{{error.image.message}}</li> {% endif %}
+				{% endfor %}
+			</ul>
+	{% endif %}
+	<form  action="/add-article" method="POST" enctype="multipart/form-data">
+		<div class="form-group">
+			<label for="" class="form-label">Title :</label>
+			<input type="text" name="title" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label for="" class="form-label">Category :</label>
+			<select name="category" id="category" class="form-select">
+				<option value="">choice your category <article></article></option>
+				{% if category  %}
+					{% for category in category %}
+						<option value="{{category.title}}">{{category.title}}</option>
+					{% endfor %}
+				{% endif %}
+			</select>
+				<div class="input-group">
+				<label class="input-group" >Content :</label>
+				<textarea name="content" id="content" class="from-control"  cols="150" rows="20"></textarea>
+				</div>
+			<div class="form-group">
+				<label for="" class="form-label">Image :</label>
+				<input type="file" name="image" class="form-control"/>
+			</div>
+			<button class="btn btn-success m-2 p-2">Add Article
+			</button>
+		</form>
+	{% endblock %}
+	{# plugin CKEditor 5 #}
+	{% block javascript %}
+		<script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script>
+		<script>
+        ClassicEditor
+            .create( document.querySelector( '#content' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+				
+    </script>
+		{% endblock %}

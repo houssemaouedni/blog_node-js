@@ -1,0 +1,48 @@
+{% extends "layout.twig" %}
+
+
+{% block body %}
+    <h1>Register</h1>
+    	{% if errorFromUser %}
+			<p class="text-danger">Please fix the following errors.</p>
+			<ul class="errors">
+				{% for error in errorFromUser %}
+					{% if error.username %} 
+					<li>{{error.username.message}}</li> 
+					{% endif %}
+					{% if error.firstname %} <li>{{error.firstname.message}}</li> {% endif %}
+					{% if error.lastname %} <li>{{error.lastname.message}}</li> {% endif %}
+					{% if error.email %} <li>{{error.email.message}}</li> {% endif %}
+					{% if error.password %} <li>{{error.password.message}}</li> {% endif %}
+					{% if error.passwordConfirm %} <li>{{error.passwordConfirm.message}}</li> {% endif %}
+				{% endfor %}
+			</ul>
+	{% endif %}
+    <form action="" method="POST">
+        <p class="text-center" >Do you have an account ?
+        <a href="/users/login"> Please click here to login ! </a></p>
+        <div class="input-group flex-nowrap mt-3">
+            <span class="input-group-text" id="addon-wrapping">Username</span>
+            <input type="text" class="form-control" name="username" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
+        <div class="input-group mt-3">
+            <span class="input-group-text ">First and last name</span>
+            <input type="text" name="firstname"  aria-label="Firstname" class="form-control">
+            <input type="text" name="lastname" aria-label="Lastname" class="form-control">
+        </div>
+        <div class="input-group flex-nowrap mt-3">
+            <span class="input-group-text" id="addon-wrapping">Email: @</span>
+            <input type="email" class="form-control" name="email" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
+        <div class="input-group flex-nowrap mt-3">
+            <span class="input-group-text" id="addon-wrapping">password</span>
+            <input type="password" class="form-control" name="password" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
+        <div class="input-group flex-nowrap mt-3">
+            <span class="input-group-text" id="addon-wrapping">Repeat Password</span>
+            <input type="password" name="passwordConfirm" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Sing UP</button>
+    </form>
+
+{% endblock body %}

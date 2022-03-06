@@ -1,0 +1,47 @@
+{% extends "layout.twig" %}
+
+
+{% block body %}
+	<h1>Edit your Article</h1>
+	<form  action="" method="POST" enctype="multipart/form-data">
+		<div class="form-group">
+			<label for="" class="form-label">Title :</label>
+			<input type="text" name="title" value="{{article.title}}" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label for="" class="form-label">Category :</label>
+			<select name="category" id="category" class="form-select">
+				<option value="">choice your category <article></article></option>
+				{% if category  %}
+					{% for category in category %}
+					{% if category.title is same as (article.category) %}
+						<option value="{{category.title}}" selected>{{category.title}}</option>
+						{% else %}
+						<option value="{{category.title}}">{{category.title}}</option>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			</select>
+				<div class="input-group">
+				<label class="input-group" >Content :</label>
+				<textarea name="content" id="content" class="from-control"  cols="150" rows="20">{{article.content | raw}}</textarea>
+				</div>
+			<div class="form-group">
+				<label for="" class="form-label">Image :</label>
+				<input type="file" name="image" class="form-control"/>
+			</div>
+			<button class="btn btn-success m-2 p-2">Edit Article
+			</button>
+		</form>
+	{% endblock %}
+	{# plugin CKEditor 5 #}
+	{% block javascript %}
+		<script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script>
+		<script>
+        ClassicEditor
+            .create( document.querySelector( '#content' ) )
+            .catch( error => {
+                console.error( error );
+            } );	
+    </script>
+		{% endblock %}
